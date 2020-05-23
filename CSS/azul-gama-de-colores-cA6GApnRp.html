@@ -1,0 +1,508 @@
+q: <br/><html lang="es">
+<head>
+  <script type="text/javascript" src="https://go.automatad.com/geo/gZ8XDy/afihbs.js" async></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Azul gama de colores - Imagui</title>  
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+  <link href="/screen.css?v=5" rel="stylesheet"/>
+  <link rel="shortcut icon" href="/img/favicon34x34.png"/>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<link rel='stylesheet' id='FontAwesome-css'  href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css?ver=5.3.2' type='text/css' media='all' />
+	
+	</head>
+
+<body>
+  <div id="web">
+    <div id="header">
+			<a id="logo" href="/"><img src="/img/logo2x.png" alt="Imagui Logo" /></a>
+			<form id="searchform" role="search" method="get" action="/search">
+        <input type="text" name="q" placeholder="Buscar imágenes..." required="" />
+        <button type="submit" value="Search" id="searchsubmit" class="submit"><i class="fas fa-search"></i></button>
+			</form>
+		  <script>
+		    $( document ).ready(function() {
+		      $( "#mobile-nav" ).click(function() {
+		        $( "#menu" ).toggle();
+		        $( "#header #user" ).toggle();
+		        $( "#fb-button" ).toggle();
+		      });
+		    });
+		  </script>
+		
+	    <img id="mobile-nav" src="/img/menu.svg" width="28" height="20" alt="Mobile navigation button" />
+	    			<div id="menu">
+	      <ul>	      </ul>
+		  </div>
+				  </div>
+
+
+  <div id="content">
+    <script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+    $(document).scroll(function() {
+      if ($(document).scrollTop() > 800) {
+        $("#gotop").fadeIn("fast");
+      } else {
+        $("#gotop").fadeOut("fast");
+      }
+    });
+    $("#gotop").click(function() {
+      window.scrollTo(0, 0);
+      return false;
+    });
+
+    $(".aivoteup .notvoted").parent().hover(function() {
+      $(this).find("img").attr("src","/img/vote-up-on.svg");
+    }, function() {
+      $(this).find("img").attr("src","/img/vote-up.svg");
+    });
+
+    $(".aivotedown .notvoted").parent().hover(function() {
+      $(this).find("img").attr("src","/img/vote-down-on.svg");
+    }, function() {
+      $(this).find("img").attr("src","/img/vote-down.svg");
+    });
+
+    $(".voteup.notvoted").parent().click(function() {
+      var photoup = $(this);
+      photoup.find("img").attr("src","/img/vote-up-on.svg");
+      $.post("/photo-voteup", { photo: $(this).attr("data-id"), user: 0 }, function(data) {
+          photoup.find("img").removeClass("notvoted");
+          photoup.find("img").addClass("voted");
+          photoup.parent().parent().find(".aivotedown img").attr("src", "/img/vote-down.svg");
+          photoup.unbind();
+          $(document).on('click', photoup, function() {
+            return false;
+          });
+
+          var numvotesup = photoup.parent().parent().parent().find("#numvotesup");
+          numvotesup.text(parseInt(numvotesup.text()) + 1);
+
+          var numtotalvotes = photoup.parent().parent().parent().find("#numtotalvotes");
+          numtotalvotes.text(parseInt(numtotalvotes.text()) + 1);
+
+          if(photoup.parent().parent().find(".votedown.voted").length) {
+            numvotesup.text(parseInt(numvotesup.text()) + 1);
+            numtotalvotes.text(parseInt(numtotalvotes.text()) + 1);
+          }
+        });
+      return false;
+    });
+
+    $(".votedown.notvoted").parent().click(function() {
+      var photodown = $(this);
+      photodown.find("img").attr("src","/img/vote-down-on.svg");
+      $.post("/photo-votedown", { photo: $(this).attr("data-id"), user: 0 }, function(data) {
+          photodown.find("img").removeClass("notvoted");
+          photodown.find("img").addClass("voted");
+          photodown.parent().parent().find(".aivoteup img").attr("src", "/img/vote-up.svg");
+          photodown.unbind();
+          $(document).on('click', photodown, function() {
+            return false;
+          });
+
+          var numvotesup = photoup.parent().parent().parent().find("#numvotesup");
+          var numvotesdown = photodown.parent().parent().parent().find("#numvotesdown");
+          numvotesdown.text(parseInt(numvotesdown.text()) + 1);
+
+          var numtotalvotes = photodown.parent().parent().parent().find("#numtotalvotes");
+          numtotalvotes.text(parseInt(numtotalvotes.text()) - 1);
+
+          if(photodown.parent().parent().find(".voteup.voted").length) {
+            numvotesup.text(parseInt(numvotesup.text()) +1);
+            numtotalvotes.text(parseInt(numtotalvotes.text()) - 1);
+          }
+        });
+      return false;
+    });
+
+    $(".voted").parent().click(function() {
+      return false;
+    });
+
+    $(".sendcomment").click(function() {
+      var button = $(this);
+      var body = $(this).parent().find(".commentbody").val();
+      var hash = $(this).attr("img-hash");
+      $.post("/photo-comment", { photo: $(this).attr("data-id"), body: body, user: 0 }, function(data) {
+          button.parent().find(".commentbody").val("");
+          var newcomment = $("#comment-template .comment").clone(true);
+          newcomment.find(".commentbody").text(body);
+          newcomment.find(".commentmeta a").text("");
+          newcomment.find(".commentmeta a").attr("href", "/u/");
+          $("#" + hash + " .comments").prepend(newcomment);
+        });
+      return false;
+    });
+
+    $(".aieliminar").click(function() {
+      $(".aimenu li").removeClass("selected");
+      $(this).parent().addClass("selected");
+      $("#" + $(this).attr("data-id") + " .flagtypes").show();
+      $("#" + $(this).attr("data-id") + " .comments").hide();
+      return false;
+    });
+    $(".cancelflag").click(function() {
+      $(".flagtypes input").each(function() {
+        this.checked = false;
+      });
+      $(".aimenu li").removeClass("selected");
+      $(this).parent().parent().hide();
+      $(".copydetails").hide();
+      $(this).parent().parent().parent().find(".comments").show();
+      return false;
+    });
+    $(".flagimage").click(function() {
+      var hash = $(this).attr("hash");
+      if($("input:radio[name='flagtype" + hash + "']").is(":checked")) {
+        if($("input:radio[id='flagcopyright" + hash + "']").is(":checked")) {
+          if(!$("input:checkbox[id='chkcopy" + hash + "']").is(":checked")) {
+            return false;
+          }
+          if($("#copyname" + hash).val() == "") {
+            return false;
+          }
+          if($("#copyemail" + hash).val() == "") {
+            return false;
+          }
+          if($("#copyexp" + hash).val() == "") {
+            return false;
+          }
+        }
+
+        $.post("/photo-flag", { photo: hash, user: 0, flagtype: $("#"+hash+" input[type='radio']:checked").val(), name: $("#copyname" + hash).val(), email: $("#copyemail" + hash).val(), explanation: $("#copyexp" + hash).val() }, function(data) {
+          $("#" + hash + " *").hide();
+          $(".copydetails").hide();
+          $(".flagtypes input").each(function() {
+            this.checked = false;
+          });
+          var imgsrc = $("#img_" + hash).attr("src");
+          $("#" + hash).append("<div class='msgdeleted'><p class='imgdeleted'><img src='" + imgsrc + "' width='85' /><strong>Imagen eliminida!</strong> Gracias por colaborar a mejorar Imagui.com!</p></div>");
+          var top = $("#" + hash).position().top - 50;
+          $('body, html').animate({scrollTop: top}, 0);
+        });
+      }
+      return false;
+    });
+    $(".flagtypes input:radio").click(function() {
+      $(".copydetails").hide();
+    });
+    $(".flagtypes input:radio[value='copyright']").click(function() {
+      $(".copydetails").show();
+    });
+  });
+
+  function printImg(id) {
+    //pwin = window.open(document.getElementById(id).src, "_blank");
+    popup = window.open();
+    popup.document.write("<img src='" + document.getElementById(id).src + "' />");
+    popup.onload = function () { window.print(); }
+  }
+</script>
+<div id="gotop">
+  <a href="#"><img src="/img/gotop.png" alt="Scroll to Top of the page" /></a>
+</div>
+<div id="comment-template" style="display: none;">
+  <div class="comment">
+    <img src="" />
+    <div class="commenttxt">
+      <p class="commentmeta"><a href=""></a></p>
+      <p class="commentbody"></p>
+    </div>
+  </div>
+</div>
+				
+			  
+    <div id="maincontent">
+    	<div id="albumtxt">
+      	<h1>Azul gama de colores</h1>
+							        <p>Este album de Azul gama de colores con 11 fotos e imágenes no tiene descripción. Puedes sugerir una descripción de éste álbum y publicar nuevas fotos en él.</p>
+			        </div>
+      
+      <div id="albumimgs">
+		          <div class="algumimg" id="ceKX55GpT">
+          <div class="aivotes">
+						<div class="aivoteup"><a data-id="30528309" href="#" title="Dar un voto positivo a esta imagen"><img class="voteup notvoted" src="/img/vote-up.svg" width="22" height="20" alt="Voto positivo" /></a></div>
+            <div class="aicurrentrank"><strong id="numtotalvotes">0</strong><br />puntos</div>
+						<div class="aivotedown"><a data-id="30528309" href="#" title="Dar un voto negativo a esta imagen"><img class="votedown notvoted" src="/img/vote-down.svg" width="22" height="20" alt="Voto negativo" /></a></div>
+            <small class="votes"><span id="numvotesup">0</span> <img src="/img/vote-up-on.svg" alt="Votos positivos" style="width:12px;height:12px; margin-left: -1px" /> &nbsp; <span id="numvotesdown">0</span> <img style="width:12px;height:12px; vertical-align:bottom; margin-left: -1px" src="/img/vote-down-on.svg" alt="Votos negativos" /></small>
+          </div>
+          <div class="aicontainer"><img id="img_ceKX55GpT" class="img" src="https://montserratfajardomakeup.files.wordpress.com/2015/04/img_6640.jpg" alt="Sombras, elección de colores | Montserrat Fajardo Make up" title="Sombras, elección de colores | Montserrat Fajardo Make up" /></div>
+					
+										<div id="caption">
+            <p>Sombras, elección de colores | Montserrat Fajardo Make up</p>
+          </div>
+										<div class="socialinfo">
+						<div class="dbb"><a href="/d/ceKX55GpT" class="downloadb">Descargar imágen</a></div>
+          	<img class="aicomments" src="/img/comment.svg" width="20" height="20" alt="Comments button icon" />
+          	<div class="aiinfo">
+            	<p class="postedby">Publicada por <a href="/u/anatildebadillo"><img src="/avatar/qKiyqqgc4.jpg" class="authorpic" />anatildebadillo</a> hace: 4 años</p>
+            	<p class="aieliminarp"><a class="aieliminar" data-id="ceKX55GpT" href="#">Eliminar esta imagen</a></p>
+          	</div>
+					</div>
+          <div class="flagtypes">
+            <p>Indica el motivo para eliminar esta imagen:</p>
+            <div>
+              <input type="radio" name="flagtypeceKX55GpT" value="inappropriate" id="flaginappropriateceKX55GpT" /><label for="flaginappropriateceKX55GpT">La imagen muestra contenido <strong>sexual, violento o inapropiado</strong></label>
+            </div>
+            <div>
+              <input type="radio" name="flagtypeceKX55GpT" value="irrelevant" id="flagirrelevantceKX55GpT" /><label for="flagirrelevantceKX55GpT">La imagen <strong>no es relevante</strong> en este album</label>
+            </div>
+            <div>
+              <input type="radio" name="flagtypeceKX55GpT" value="copyright" id="flagcopyrightceKX55GpT" /><label for="flagcopyrightceKX55GpT">Poseo los derechos de <strong>copyright</strong> de esta imagen y quiero que sea eliminada de Imagui.com</label>
+              <div class="copydetails">
+                <div>
+                  <label for="copynameceKX55GpT">Nombre:</label>
+                  <input type="text" name="copynameceKX55GpT" value="" id="copynameceKX55GpT" />
+                  <label for="copyemailceKX55GpT">E-mail:</label>
+                  <input type="text" name="copyemailceKX55GpT" value="" id="copyemailceKX55GpT" />
+                </div>
+                <label for="copyexpceKX55GpT">Explicación detallada del caso:</label>
+                <textarea name="copyexpceKX55GpT" id="copyexpceKX55GpT" rows="4" cols="50"></textarea>
+                <p class="copylegal"><input type="checkbox" id="chkcopyceKX55GpT" /><label for="chkcopyceKX55GpT">Juro, bajo pena de perjurio, que la información de esta notificación es correcta y que soy el propietario de los derechos de autor o estoy autorizado a actuar en nombre del propietario de un derecho exclusivo que presuntamente se ha infringido.</label></p>
+              </div>
+            </div>
+            <p class="flagbuttons"><a href="#" class="flagimage button small" hash="ceKX55GpT">Enviar</a> - <a href="#" class="cancelflag">cancelar</a></p>
+          </div>
+				</div>
+			        <div class="algumimg" id="TyE688jLi">
+          <div class="aivotes">
+						<div class="aivoteup"><a data-id="30528428" href="#" title="Dar un voto positivo a esta imagen"><img class="voteup notvoted" src="/img/vote-up.svg" width="22" height="20" alt="Voto positivo" /></a></div>
+            <div class="aicurrentrank"><strong id="numtotalvotes">0</strong><br />puntos</div>
+						<div class="aivotedown"><a data-id="30528428" href="#" title="Dar un voto negativo a esta imagen"><img class="votedown notvoted" src="/img/vote-down.svg" width="22" height="20" alt="Voto negativo" /></a></div>
+            <small class="votes"><span id="numvotesup">0</span> <img src="/img/vote-up-on.svg" alt="Votos positivos" style="width:12px;height:12px; margin-left: -1px" /> &nbsp; <span id="numvotesdown">0</span> <img style="width:12px;height:12px; vertical-align:bottom; margin-left: -1px" src="/img/vote-down-on.svg" alt="Votos negativos" /></small>
+          </div>
+          <div class="aicontainer"><img id="img_TyE688jLi" class="img" src="http://2.bp.blogspot.com/-IQCGRZZd_Ao/UbhNOI4BWHI/AAAAAAAAAUw/IQeq8H5lXvI/s1600/Gama%2Bde%2Bazules.jpg" alt="DecoAnhelos: La importancia del color en la decoración!!" title="DecoAnhelos: La importancia del color en la decoración!!" /></div>
+					
+										<div id="caption">
+            <p>DecoAnhelos: La importancia del color en la decoración!!</p>
+          </div>
+										<div class="socialinfo">
+						<div class="dbb"><a href="/d/TyE688jLi" class="downloadb">Descargar imágen</a></div>
+          	<img class="aicomments" src="/img/comment.svg" width="20" height="20" alt="Comments button icon" />
+          	<div class="aiinfo">
+            	<p class="postedby">Publicada por <a href="/u/anatildebadillo"><img src="/avatar/qKiyqqgc4.jpg" class="authorpic" />anatildebadillo</a> hace: 4 años</p>
+            	<p class="aieliminarp"><a class="aieliminar" data-id="TyE688jLi" href="#">Eliminar esta imagen</a></p>
+          	</div>
+					</div>
+          <div class="flagtypes">
+            <p>Indica el motivo para eliminar esta imagen:</p>
+            <div>
+              <input type="radio" name="flagtypeTyE688jLi" value="inappropriate" id="flaginappropriateTyE688jLi" /><label for="flaginappropriateTyE688jLi">La imagen muestra contenido <strong>sexual, violento o inapropiado</strong></label>
+            </div>
+            <div>
+              <input type="radio" name="flagtypeTyE688jLi" value="irrelevant" id="flagirrelevantTyE688jLi" /><label for="flagirrelevantTyE688jLi">La imagen <strong>no es relevante</strong> en este album</label>
+            </div>
+            <div>
+              <input type="radio" name="flagtypeTyE688jLi" value="copyright" id="flagcopyrightTyE688jLi" /><label for="flagcopyrightTyE688jLi">Poseo los derechos de <strong>copyright</strong> de esta imagen y quiero que sea eliminada de Imagui.com</label>
+              <div class="copydetails">
+                <div>
+                  <label for="copynameTyE688jLi">Nombre:</label>
+                  <input type="text" name="copynameTyE688jLi" value="" id="copynameTyE688jLi" />
+                  <label for="copyemailTyE688jLi">E-mail:</label>
+                  <input type="text" name="copyemailTyE688jLi" value="" id="copyemailTyE688jLi" />
+                </div>
+                <label for="copyexpTyE688jLi">Explicación detallada del caso:</label>
+                <textarea name="copyexpTyE688jLi" id="copyexpTyE688jLi" rows="4" cols="50"></textarea>
+                <p class="copylegal"><input type="checkbox" id="chkcopyTyE688jLi" /><label for="chkcopyTyE688jLi">Juro, bajo pena de perjurio, que la información de esta notificación es correcta y que soy el propietario de los derechos de autor o estoy autorizado a actuar en nombre del propietario de un derecho exclusivo que presuntamente se ha infringido.</label></p>
+              </div>
+            </div>
+            <p class="flagbuttons"><a href="#" class="flagimage button small" hash="TyE688jLi">Enviar</a> - <a href="#" class="cancelflag">cancelar</a></p>
+          </div>
+				</div>
+			        <div class="algumimg" id="TneX887bi">
+          <div class="aivotes">
+						<div class="aivoteup"><a data-id="30528461" href="#" title="Dar un voto positivo a esta imagen"><img class="voteup notvoted" src="/img/vote-up.svg" width="22" height="20" alt="Voto positivo" /></a></div>
+            <div class="aicurrentrank"><strong id="numtotalvotes">0</strong><br />puntos</div>
+						<div class="aivotedown"><a data-id="30528461" href="#" title="Dar un voto negativo a esta imagen"><img class="votedown notvoted" src="/img/vote-down.svg" width="22" height="20" alt="Voto negativo" /></a></div>
+            <small class="votes"><span id="numvotesup">0</span> <img src="/img/vote-up-on.svg" alt="Votos positivos" style="width:12px;height:12px; margin-left: -1px" /> &nbsp; <span id="numvotesdown">0</span> <img style="width:12px;height:12px; vertical-align:bottom; margin-left: -1px" src="/img/vote-down-on.svg" alt="Votos negativos" /></small>
+          </div>
+          <div class="aicontainer"><img id="img_TneX887bi" class="img" src="http://image.slidesharecdn.com/colorenelinteriorismo-150429173016-conversion-gate01/95/color-en-el-interiorismo-39-638.jpg%3Fcb%3D1430346736" alt="Color en el interiorismo" title="Color en el interiorismo" /></div>
+					
+										<div id="caption">
+            <p>Color en el interiorismo</p>
+          </div>
+										<div class="socialinfo">
+						<div class="dbb"><a href="/d/TneX887bi" class="downloadb">Descargar imágen</a></div>
+          	<img class="aicomments" src="/img/comment.svg" width="20" height="20" alt="Comments button icon" />
+          	<div class="aiinfo">
+            	<p class="postedby">Publicada por <a href="/u/anatildebadillo"><img src="/avatar/qKiyqqgc4.jpg" class="authorpic" />anatildebadillo</a> hace: 4 años</p>
+            	<p class="aieliminarp"><a class="aieliminar" data-id="TneX887bi" href="#">Eliminar esta imagen</a></p>
+          	</div>
+					</div>
+          <div class="flagtypes">
+            <p>Indica el motivo para eliminar esta imagen:</p>
+            <div>
+              <input type="radio" name="flagtypeTneX887bi" value="inappropriate" id="flaginappropriateTneX887bi" /><label for="flaginappropriateTneX887bi">La imagen muestra contenido <strong>sexual, violento o inapropiado</strong></label>
+            </div>
+            <div>
+              <input type="radio" name="flagtypeTneX887bi" value="irrelevant" id="flagirrelevantTneX887bi" /><label for="flagirrelevantTneX887bi">La imagen <strong>no es relevante</strong> en este album</label>
+            </div>
+            <div>
+              <input type="radio" name="flagtypeTneX887bi" value="copyright" id="flagcopyrightTneX887bi" /><label for="flagcopyrightTneX887bi">Poseo los derechos de <strong>copyright</strong> de esta imagen y quiero que sea eliminada de Imagui.com</label>
+              <div class="copydetails">
+                <div>
+                  <label for="copynameTneX887bi">Nombre:</label>
+                  <input type="text" name="copynameTneX887bi" value="" id="copynameTneX887bi" />
+                  <label for="copyemailTneX887bi">E-mail:</label>
+                  <input type="text" name="copyemailTneX887bi" value="" id="copyemailTneX887bi" />
+                </div>
+                <label for="copyexpTneX887bi">Explicación detallada del caso:</label>
+                <textarea name="copyexpTneX887bi" id="copyexpTneX887bi" rows="4" cols="50"></textarea>
+                <p class="copylegal"><input type="checkbox" id="chkcopyTneX887bi" /><label for="chkcopyTneX887bi">Juro, bajo pena de perjurio, que la información de esta notificación es correcta y que soy el propietario de los derechos de autor o estoy autorizado a actuar en nombre del propietario de un derecho exclusivo que presuntamente se ha infringido.</label></p>
+              </div>
+            </div>
+            <p class="flagbuttons"><a href="#" class="flagimage button small" hash="TneX887bi">Enviar</a> - <a href="#" class="cancelflag">cancelar</a></p>
+          </div>
+				</div>
+			        <div class="algumimg" id="cjeX88n9T">
+          <div class="aivotes">
+						<div class="aivoteup"><a data-id="30528477" href="#" title="Dar un voto positivo a esta imagen"><img class="voteup notvoted" src="/img/vote-up.svg" width="22" height="20" alt="Voto positivo" /></a></div>
+            <div class="aicurrentrank"><strong id="numtotalvotes">0</strong><br />puntos</div>
+						<div class="aivotedown"><a data-id="30528477" href="#" title="Dar un voto negativo a esta imagen"><img class="votedown notvoted" src="/img/vote-down.svg" width="22" height="20" alt="Voto negativo" /></a></div>
+            <small class="votes"><span id="numvotesup">0</span> <img src="/img/vote-up-on.svg" alt="Votos positivos" style="width:12px;height:12px; margin-left: -1px" /> &nbsp; <span id="numvotesdown">0</span> <img style="width:12px;height:12px; vertical-align:bottom; margin-left: -1px" src="/img/vote-down-on.svg" alt="Votos negativos" /></small>
+          </div>
+          <div class="aicontainer"><img id="img_cjeX88n9T" class="img" src="http://i2.wp.com/www.silocreativo.com/wp-content/uploads/2014/03/gama-amarillo-azul.png%3Fresize%3D666%252C170" alt="FREELANCER MÉXICO: GAMA DE COLORES ¿CÓMO USARLOS Y COMBINARLOS?" title="FREELANCER MÉXICO: GAMA DE COLORES ¿CÓMO USARLOS Y COMBINARLOS?" /></div>
+					
+										<div id="caption">
+            <p>FREELANCER MÉXICO: GAMA DE COLORES ¿CÓMO USARLOS Y COMBINARLOS?</p>
+          </div>
+										<div class="socialinfo">
+						<div class="dbb"><a href="/d/cjeX88n9T" class="downloadb">Descargar imágen</a></div>
+          	<img class="aicomments" src="/img/comment.svg" width="20" height="20" alt="Comments button icon" />
+          	<div class="aiinfo">
+            	<p class="postedby">Publicada por <a href="/u/anatildebadillo"><img src="/avatar/qKiyqqgc4.jpg" class="authorpic" />anatildebadillo</a> hace: 4 años</p>
+            	<p class="aieliminarp"><a class="aieliminar" data-id="cjeX88n9T" href="#">Eliminar esta imagen</a></p>
+          	</div>
+					</div>
+          <div class="flagtypes">
+            <p>Indica el motivo para eliminar esta imagen:</p>
+            <div>
+              <input type="radio" name="flagtypecjeX88n9T" value="inappropriate" id="flaginappropriatecjeX88n9T" /><label for="flaginappropriatecjeX88n9T">La imagen muestra contenido <strong>sexual, violento o inapropiado</strong></label>
+            </div>
+            <div>
+              <input type="radio" name="flagtypecjeX88n9T" value="irrelevant" id="flagirrelevantcjeX88n9T" /><label for="flagirrelevantcjeX88n9T">La imagen <strong>no es relevante</strong> en este album</label>
+            </div>
+            <div>
+              <input type="radio" name="flagtypecjeX88n9T" value="copyright" id="flagcopyrightcjeX88n9T" /><label for="flagcopyrightcjeX88n9T">Poseo los derechos de <strong>copyright</strong> de esta imagen y quiero que sea eliminada de Imagui.com</label>
+              <div class="copydetails">
+                <div>
+                  <label for="copynamecjeX88n9T">Nombre:</label>
+                  <input type="text" name="copynamecjeX88n9T" value="" id="copynamecjeX88n9T" />
+                  <label for="copyemailcjeX88n9T">E-mail:</label>
+                  <input type="text" name="copyemailcjeX88n9T" value="" id="copyemailcjeX88n9T" />
+                </div>
+                <label for="copyexpcjeX88n9T">Explicación detallada del caso:</label>
+                <textarea name="copyexpcjeX88n9T" id="copyexpcjeX88n9T" rows="4" cols="50"></textarea>
+                <p class="copylegal"><input type="checkbox" id="chkcopycjeX88n9T" /><label for="chkcopycjeX88n9T">Juro, bajo pena de perjurio, que la información de esta notificación es correcta y que soy el propietario de los derechos de autor o estoy autorizado a actuar en nombre del propietario de un derecho exclusivo que presuntamente se ha infringido.</label></p>
+              </div>
+            </div>
+            <p class="flagbuttons"><a href="#" class="flagimage button small" hash="cjeX88n9T">Enviar</a> - <a href="#" class="cancelflag">cancelar</a></p>
+          </div>
+				</div>
+			 
+    	</div>
+		</div>
+		
+		
+    <div id="sidebar">
+			<div class="box author">
+        <h2>Autor</h2>
+				<a href="/u/anatildebadillo"><img class="authorpic" src="/avatar/qKiyqqgc4.jpg" width="80" style="border-radius: 40px;" /></a>
+        <a href="/u/anatildebadillo" class="authorname">anatildebadillo</a><br />
+				<p><strong>661</strong> albums</p>
+			</div>
+      
+      <div class="box info">
+        <h2>Información</h2>
+        <h3>Azul gama de colores</h3>
+        <p id="totalphotos"><strong>11</strong> fotos</p>
+        <p id="totalviews"><strong>0</strong> vistas</p>
+				<p id="created">Creado hace 4 años.</p>
+			</div>
+      
+			<h2 id="ugp">Últimas galerías publicadas</h2>
+		        
+      <div class="promo"><div class="promoi">
+      	<a href="/a/moana"><img src="https://lumiere-a.akamaihd.net/v1/images/r_moana_header_poststreet_mobile_bd574a31.jpeg?region=0,0,640,480" /></a>
+              </div>
+			<p><a href="/a/moana">Moana</a></p>
+      </div>
+			      
+      <div class="promo"><div class="promoi">
+      	<a href="/a/dory"><img src="https://vignette.wikia.nocookie.net/disney/images/3/36/Profile_-_Dory.png/revision/latest?cb=20190316200551" /></a>
+              </div>
+			<p><a href="/a/dory">Dory</a></p>
+      </div>
+			      
+      <div class="promo"><div class="promoi">
+      	<a href="/a/bts"><img src="https://www.cheatsheet.com/wp-content/uploads/2020/04/BTS-new-album.jpg" /></a>
+              </div>
+			<p><a href="/a/bts">BTS</a></p>
+      </div>
+			      
+      <div class="promo"><div class="promoi">
+      	<a href="/a/paw-patrol"><img src="https://showmax.akamaized.net/i/44c66155-4ee8-4a3b-9894-60bbebef1fdc" /></a>
+              </div>
+			<p><a href="/a/paw-patrol">Paw Patrol</a></p>
+      </div>
+			      
+      <div class="promo"><div class="promoi">
+      	<a href="/a/billie-eilish"><img src="https://www.nme.com/wp-content/uploads/2020/03/Billie-Eilish.jpg" /></a>
+              </div>
+			<p><a href="/a/billie-eilish">Billie Eilish</a></p>
+      </div>
+			      
+      <div class="promo"><div class="promoi">
+      	<a href="/a/comidas-tipicas-de-colombia"><img src="http://imagenes.canalrcn.com/imgTacho/foto-tomada-de-hablemosdeculturas.jpg" /></a>
+              </div>
+			<p><a href="/a/comidas-tipicas-de-colombia">Comidas típicas de Colombia</a></p>
+      </div>
+			 
+			
+			<br class="clear" />
+		</div>
+		
+    <div class="cf"></div>
+
+    <script type="text/javascript">
+      $("#maincontent img").error(function(){
+        $(this).parent().parent().hide();
+      });
+    </script>
+
+		<br class="clear" />
+  </div>
+ 
+  <a id="scroll-up" onclick="scrollTo(0,0)"></a>
+  <div id="footer">
+    <img src="/img/logo-footer.png" width="56" height="57" />
+    <ul>
+			<li><a href="/">Imagui</a> &copy; 2012 - 2020</li>
+      <li><a href="/politica-contenido">Política de contenido</a></li>
+      <li><a href="/contacto">Contacto</a></li>
+      <li><a href="/terminos" rel="nofollow">Términos de uso</a></li>
+      <li><a href="/politica-privacidad" rel="nofollow">Política de privacidad</a></li>
+    </ul>
+  </div>
+	<!-- Default Statcounter code for imagui http://imagui.com
+	-->
+	<script type="text/javascript">
+	var sc_project=8515110; 
+	var sc_invisible=1; 
+	var sc_security="42faeb85"; 
+	var sc_https=1; 
+	</script>
+	<script type="text/javascript"
+	src="https://www.statcounter.com/counter/counter.js"
+	async></script>
+	<noscript><div class="statcounter"><a title="Web Analytics"
+	href="https://statcounter.com/" target="_blank"><img
+	class="statcounter"
+	src="https://c.statcounter.com/8515110/0/42faeb85/1/"
+	alt="Web Analytics"></a></div></noscript>
+	<!-- End of Statcounter Code -->
+</body>
+</html>

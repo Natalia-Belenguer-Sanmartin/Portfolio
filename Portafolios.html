@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Natalia Belenguer Sanmartín</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Source+Sans+Pro:ital,wght@1,200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/estilos.css"> <!--Estilos enlazados desde un archivo css externo: utilizando la etiqueta link que nos permite enlazar recursos externos.El estilo que tiene menor importancia, excepto si le pones !important-->
+    <link rel="icon" type="image/png" href="C:\Users\Natalia\Desktop\NATALIA\Conocimiento\PLATZI\Curso de Desarrollo Web Online/favicon.png">
+</head>
+<body>
+    <header class="header">
+        <div>
+            <figure class="logo">
+                <img src="C:\Users\Natalia\Desktop\NATALIA\Conocimiento\PLATZI\Curso de Desarrollo Web Online/logo.png" alt="Logo">
+            </figure>
+        </div>
+        <nav class="menu">
+            <ul>
+                <li>
+                     <a class="link" href="#Experiencia">Expericiencia</a>
+                </li>
+                <li>
+                     <a class="link" href="#Formación">Formación</a>
+                </li>
+                <li>
+                     <a class="link" href="#Habilidades">Habilidades</a> <!--Para enlazar a partes de la pagina usar #-->
+                </li>
+                <li>
+                    <a class="link" href="#Contacto">Contacto</a> <!--Si el enlace al que queremos acceder no esta en esta pagina, pondriamos:/Contacto/-->
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <section class="hero">
+        <h1>
+            ¡Hola! Soy <strong>Natalia Belenguer</strong> <br> Ingeniera <strong>Electrónica Industrial</strong>  <br> con pasión por la <strong>programación</strong>  
+        </h1>
+        <!--<img src="C:\Users\Natalia\Desktop\NATALIA\Conocimiento\PLATZI\Curso de Desarrollo Web Online/mifotoblancoynegro.jpg" width="500" alt="Mi foto">-->
+    </section>
+    <section id="Experiencia" class="experiencia">
+        <h2>Experiencia</h2>
+        <article class="experiencia-article">
+            <div class="experiencia-details">
+                <h3 class="experiencia-titulo">Integral del clima S.L</h3>
+                <h6 class="experiencia-departamento">Departamento: Técnico industrial</h6>
+                <p class="experiencia-fecha"><small><strong>Fecha:</strong>04/02/2019</small></p>
+                <p class="experiencia-url"><small><strong>Accede a su página:</strong>https://integraldelclima.com/inicio/</small></p>
+                <p class="experiencia-descripcion">
+                    Integral del clima, S.L. es un negocio dedicado al diseño y automatización de sistemas de climatización y calidad del aire. Las labores en la empresa han consistido en el diseño de los sistemas de climatización requeridos por el cliente, diseñados en función de las especificaciones de temperatura, humedad, presión, consumo de potencia, etc. Posteriormente he realizado en AutoCAD los planos del equipo anteriormente escogido. Las especificaciones del cliente requieren de una conexión entre los diferentes elementos, por lo cual se automatiza el sistema mediante PLC´s y se crea el interfaz con el usuario.
+                </p>
+            </div> <!--Utilizar un div, para dividir este article y asi poder poner en pantalla el texto ocupando la mitad y la imagen al lado ocupando la otra mitad-->
+            <figure class="experiencia-imagen-container">
+                <img class="experiencia-imagen" width="" src="" alt="">
+            </figure>
+        </article>
+        <article>
+            <h3>FERMAX</h3>
+            <h6> <strong>Departamento:</strong> Servicio Técnico </h6>
+            <p><small><strong>Fecha:</strong>13/01/2020</small></p>
+            <p><small><strong>Accede a su página:</strong> https://www.fermax.com/spain/pro.html</small></p>
+            <p>
+                REDACTAR
+            </p>
+            <img src="" alt="">
+        </article>
+        <article>
+            <h3>Proyecto de automatización industrial de un sistema de climatización HVAC</h3>
+            <h6> <strong>Trabajo final de grado</strong>  </h6>
+            <p><small><strong>Fecha:</strong>01/03/2020</small></p>
+            <p><small><strong>Accede para verlo:</strong> añadir</small></p>
+            <p>
+                REDACTAR: El trabajo final de grado consiste en la automatización industrial de un sistema de climatización HVAC para la realización de una sala limpia clasificada. Para la ejecución de este proyecto he utilizado un autómata programable de la marca Siemens S7-1500 con Software de programación STEP7(TIA Portal) y para el interfaz visual con el usuario, he diseñado el HMI y el servidor web.
+            </p>
+            <img src="" alt=""> 
+        </article>   
+    </section>
+    <section id="Formación">
+        <h2>Formación</h2>
+        <article class="formacion">
+            <figure class="formacion-imagen-contenido">
+                <img class="formacion-imagen" src="" alt="">
+            </figure>
+            <h3 class="formacion-titulo">Grado en ingeniería electrónica industrial</h3>
+            <p>Universidad de Valencia</p>
+            <a href="https://www.youtube.com/watch?v=Pc_dxSgXsl4&feature=youtu.be" target="_blank">Ver proyectos</a> <!--Atributo target="_blank" para que al clicar el enlace, este se habra desde otra pestaña del navegador-->
+        </article>
+    </section>
+    <section id="Habilidades">sección Habilidades</section>
+    <section id="Contacto" class="contacto">
+        <form action="/correo/" class="email">
+            <h3>Trabajemos juntos</h3>
+            <input type="text" placeholder="Deja tu email" value="@gmail.com" id="email">
+            <input type="submit" value="Enviar">
+        </form>
+    </section>
+    <footer class="footer">footer</footer>
+</body>
+</html>
