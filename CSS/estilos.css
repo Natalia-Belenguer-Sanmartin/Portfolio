@@ -1,14 +1,10 @@
 header{
     background:#1b2127  ;
     color: white;
-    height: 90px;
+    height: 70px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-}
-header a{
-    color: white;
-    text-decoration:none ;/*none= quitar decoracion, que hay por defecto*/
-    height: inherit;
 }
 .header ul{
     display: flex;
@@ -17,29 +13,39 @@ header a{
 .header ul li{
     height: inherit;
 }
+header a{
+    color: white;
+    text-decoration:none ;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+}
 .menu{
     height: inherit;
 }
 .hero {
-    background-image:url('./mifotoblancoynegro.jpg') ; /*url relativa*/
+    height: 300px;
     background-color:#1b2127 ;
-    background-size: 500px 300px ; /*width height*/
-    background-repeat: no-reapeat;/*no se repita la imagen*/
-    background-position-x:right;/*poner imagen a la derecha de la pantalla*/
-     
+    /*background-size: 500px 300px ; /*width height*/
+    /*background-repeat: no-reapeat;/*no se repita la imagen*/
+    /*background-position-x:right;/*poner imagen a la derecha de la pantalla*/
+    display: flex;  
+    align-items: center;
+    justify-content: space-between;
+}
+.hero-imagen{
+    object-fit:cover ;
 }
 .hero img{
-    width : 500px;
+    width : 300px;
 }
 h1{
     font-size: 40px;
     color: white;
     line-height: 1.5em;/*espacio entre las lineas*/
     letter-spacing:-0.2px;/*espacio entre las letras*/
-    /*text-decoration: underline;*/
-    /*margin: 100px 500px; /*100px= top-bottom y 500=right-left*/
-    /*margin: 0 auto; para alimear en medio de la pagina el contenido*/
-    margin:100px 520px 70px 30px ; /*top right bottom left, funciona como un reloj. Para el lado derecho, hay que proporcionarle el mismo tamaño que tenga la imagen hero (o mayor) , para que el texto y la imagen no se solapen*/
+    margin: 0;
 }
 h1 strong{
     color: #5DADE2 ;
@@ -53,42 +59,182 @@ body{
 }
 h1, h2, h3, h4, h5, h6{
     font-family: 'Fjalla One', sans-serif;
-    font-weight: normal; /*normal = 400*/
+    font-weight: normal; 
 
 }
 h2{
     text-transform: uppercase;/* poner todas las letras en mayusculas*/
+    color: #5DADE2 ;
+    font-weight: bold;
+    margin-bottom: 40px;
+
 }
 .experiencia{
     background: #fafafa;
+    padding: 20px;
 }
 .experiencia-article {
     border: 1px solid gray;
-    border-radius: 10px;/*redondear las puntas*/
-    margin: 10px 10px 15px 10px; /*margenes*/
+    border-radius: 10px;
     padding: 20px;
+    margin-bottom: 15px;
     background: white;
-    /*border-top:10px solid rebeccapurple ; /*tamaño, tipo, estilo*/
-    /*border-bottom:10px solid rebeccapurple ; /*tamaño, tipo, estilo*/
-    /*border-right:10px solid green ; /*tamaño, tipo, estilo*/
-    /*border-left:10px solid green ; /*tamaño, tipo, estilo*/
-    /*border-width: 15px;/*tamaño*/
-    /*border-style: solid;/*tipo*/
-    /*border-top-style: double;/*tipo, asignado solo a una de las 4 lineas*/
-    /*border-color: #5DADE2;/*estilo: Si no se define color, por defecto el borde tendra el mismo color que el texto*/ 
+    display: flex;
+    /*align-items:center ; ESTO ES LO QUE DEBERIA ESTAR*/
+    flex-direction: column;
+    justify-content:space-between; 
 }
+
+.half-row { 
+    display: flex ;
+    flex-direction: row;
+}
+.half { 
+    width: 50%;
+}
+
+.experiencia-titulo{
+    font-size: 30px;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+.experiencia-departamento,.experiencia-fecha,.experiencia-url{
+    margin: 10px 0px;
+}
+.experiencia-descripcion{
+    font-size: 20px;
+}
+.experiencia strong{
+    font-family: 'Fjalla One', sans-serif;
+    
+}
+
 .experiencia-details{
     width: 500px;
     /*display: inline-block;*/
 }
-.experiencia-imagen-container{
-    width: 500px;
+
+.experiencia-imagen {
+    object-fit: cover; 
+    justify-content:space-between;
 }
 ol,ul{
-margin: 0;
-padding: 0;
-list-style: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 figure{
     margin: 0;
+}
+.formacion-lista{
+    display: flex;
+    flex-wrap: wrap;
+}
+.formacion{
+    margin: 10px;
+    width: 480px ;
+    flex-shrink:0 ;
+    border-radius: 10px;
+    overflow: hidden;
+    background:#fafafa ;
+}
+.formacion-lista-titulo{
+    margin-left: 20px;
+}
+.formacion img{
+    width: 480px;
+    height: 200px;
+    object-fit: cover;
+}
+.formacion-detalles{
+    margin: 20px;
+    background-color: white;
+    margin-top: -40px;
+    position: relative;
+    padding: 20px 40px;
+    text-align: center;
+
+}
+.formacion-detalles p{
+    text-align: left;
+}
+.formacion a{
+    border: 1px solid #5DADE2;
+    padding:5px 20px;
+    text-decoration: none;
+    color: #056fff;
+    border-radius: 5px;
+
+}
+.contacto{
+    background-color: #5DADE2;
+    color: white;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.social{
+    border: 1px solid #fafafa;
+}
+.social-link{
+    width: 50px;
+    height:50px ;
+    border: 1px solid grey;
+    display: inline-block;
+    background-size: 50px 50px;
+    margin: 0 10px;
+}
+.social-link.twitter{
+    background-image: url('./twitter.svg');
+}
+.social-link.instagram{
+    background-image: url('C:\Users\Natalia\Desktop\NATALIA\Conocimiento\PLATZI\Curso de Desarrollo Web Online\desarrollo-web-portafolio-9af19a0a0fcd9fb6a66c3831cca6aaebf3328762\images./.instagram.jpg');
+}
+.social-link.linkedin{
+    background-image: url("C:\Users\Natalia\Desktop\NATALIA\Conocimiento\PLATZI\Curso de Desarrollo Web Online\desarrollo-web-portafolio-9af19a0a0fcd9fb6a66c3831cca6aaebf3328762\images./twitter.jpg"); 
+}
+.email input{
+    border-color: #fafafa;
+    border-style: solid ;
+    border-radius: 5px;
+    padding: 10px 20px 10px 25px;
+    background-image: url('./envelope.svg');
+    background-size: 15px 15px;
+    background-repeat: no-repeat;
+    background-position-y:center ;
+    background-position-x: 5px ;
+}
+.enviar{
+    display: block;
+    margin-top: 10px;
+    background: transparent;
+    color: white;
+    padding: 10px 0px;
+    border-radius: 5px;
+    width: 100px;
+    margin-top: 10px;
+
+}
+.footer{
+    background-color: #1b2127;
+    color: white;
+    display: flex;
+    align-items:center ;
+    justify-content: space-between;
+}
+.footer img{
+    vertical-align: middle;
+}
+.footer a{
+    color: white;
+}
+.contenedor{
+    width: 1000px;
+    margin: 0 auto;
+    display: inherit;
+    justify-content: inherit;
+    align-items: inherit;
+    height: inherit;
+    flex-wrap: inherit;
 }
